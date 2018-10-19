@@ -1,0 +1,72 @@
+<html>
+<head>
+    <title>Canvas Animation</title>
+</head>
+
+<body>
+    <canvas id="canvas" width="200" height="200"></canvas>
+    <script>
+    var canvas = document.getElementById("canvas");
+    var ctx = canvas.getContext("2d");
+	
+	var x=100; //starts bee in middle of canvas
+	var y=100; //starts bee in middle of canvas
+	setInterval (function ()
+		
+			{
+				ctx.clearRect(0,0,200,200) //clears canvas
+				drawBee(x,y); //starts bee at 100,100 (see above)
+				x=update(x); // changes x by 2 to -2
+				y=update(y); //changes y by 2 to -2
+				ctx.strokeRect(0,0,200,200)
+			},30
+		);
+	
+	
+	var circle=function(x,y,radius,fillCircle)
+		{
+			ctx.beginPath();
+			ctx.arc(x,y,radius,0,Math.PI*2,false);
+			if (fillCircle)
+				{
+					ctx.fill();
+				}
+			else
+				{
+					ctx.stroke();
+				};
+		};
+		
+	var drawBee =function(x,y)
+		{
+			ctx.lineWidth=4;
+			ctx.strokeStyle="black";
+			ctx.fillStyle="gold";
+			circle(x,y,8,true);
+			circle(x,y,8,false);
+			circle(x-5,y-11,5,false);
+			circle(x+5,y-11,5,false);
+			circle(x-2,y-1,2,false);
+			circle(x+2,y-1,2,false);
+		};
+		
+	var update=function(coordinate) //going to change either x or y by +-2
+		{
+			var change= Math.random()*4-2; //Math.random is a number between 0-1, *4 is now between 0-4, then -2 between 2 and -2
+			coordinate += change; //changes coordinate by the change number (between 2 and -2)
+			if (coordinate > 200) //keeps it from going off the canvas
+				{coordinate=200;}
+			if (coordinate<0)
+				{coordinate=0;}
+			return coordinate; //sends the new coordinate (x or y) back to the program
+		};
+		
+	
+	
+	
+	
+	
+	
+	</script>
+</body>
+</html>
